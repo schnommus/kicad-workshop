@@ -97,9 +97,50 @@ Your task is to do this using copying commands.
 
 *Symbols* are the pretty drawings you see for each component on the schematic. *Footprints* are how the pins are physically laid out -> i.e the pattern we need on the PCB for it to actually fit. In KiCAD, these 2 things are completely detached, however for each part you will end up needing both a symbol and a footprint.
 
-### Does your symbol already exist?
+### What we will make
 
-Making a symbol is often our *Last Resort* - it takes a lot of time! Other than the basic internal library that KiCAD comes with, where else can we find symbols?
+Lets pretend our project needs a Digital-to-Analog-Converter (DAC). So we are going to make a symbol for the MCP4725 I2C DAC built by Microchip:
+
+![MCP4725 symbol](mcp4725.jpg)
+
+Take a look at the datasheet here: [MCP4725 Datasheet](http://ww1.microchip.com/downloads/en/DeviceDoc/22039d.pdf)
+
+### Using the library editor
+
+- Open the library editor from either the main KiCAD window or the schematic editor (picture of the book with a pencil at the top-right ish)
+- Create a new component by clicking the 'Create new component' button at the top left (op amp picture)
+- Give the component a name - 'MCP4725', press OK. You might want to zoom in a bit.
+- Now you need to create some pins. Look at the MCP4725 datasheet above, the pinout is on page 1.
+- Click the 'Add pins to component' button (top-ish of right toolbar)
+    - Click somewhere to make a pin
+    - Name the pin (i.e 'Vout'), and give it the correct number (i.e '1') according to the datasheet.
+    - It is good practice to also set the pin type so that KiCAD can check your circuit for electrical errors later.
+    - Click to place the pin after you press OK.
+- Protip - most of the controls are the same as the schematic editor ('e' to edit 'm' to move, 'r' to rotate etc etc)
+- Note the pin types!
+    - Vout is an output, Vss/Vdd are power pins, A0 is an input, SCL and SDA are open-collector. (bonus question - how do we know this?)
+    - You can be lazy and just set them all to passive, but it will be harder for KiCAD to check your circuit for errors.
+- You can use the rectangle tool to place a nice border around your symbol.
+
+### Saving your snazzy new symbol
+
+- In the top toolbar of icons, there is a book 'Save current component to new library'. Click it.
+- Save it into the same directory as your project. The default library name should be fine.
+- You will get a warning saying your library will not be loaded. That's fine.
+- Now you can close the library editor. *File -> Quit*
+
+### Adding the new symbol to our project
+
+- Back in the schematic editor...
+- First we have to add our new library to the schematic project
+    - *Preferences -> Component Libraries -> Add*
+    - Browse to where you saved your `MCP4725.lib` file, select it, OK.
+    - OK again to the library files window.
+- Now you can place your new part using the normal part placing tool. Nice!
+
+### Does your symbol/footprint already exist?
+
+Making a symbol/footprint is often our *Last Resort* - it takes a lot of time! Other than the basic internal library that KiCAD comes with, where else can we find symbols?
 
 - KiCAD has an extended library that isn't included by default. You can add it by going:
     - *Preferences (top bar) -> Component Libraries -> Add*
@@ -109,7 +150,18 @@ Making a symbol is often our *Last Resort* - it takes a lot of time! Other than 
     - (Example, 'HSMF-C114' RGB led is in none of the KiCAD libraries, but it is on this site)
 - Sometimes component distributors (Digikey/Element14) include symbols/footprints in their part data sections.
 
-### What we will make
+## Task 4: Adding a microcontroller & hooking things together
+
+### Adding a microcontroller
+
+In this project we will use the STM32F030F4 microcontroller from ST. Your task is to add it to our sheet:
+
+![Added microcontroller](added_micro.png)
+
+- If you search for the chip you will find it is not in the KiCAD base library. Luckily, it is in the extended library!
+    - *Preferences (top bar) -> Component Libraries -> Add*
+    - There is a library called `stm32`. Add it.
+    - Now you should be able to find the STM32F030F4 microcontroller when you place a part.
 
 ## Where to get help (after this workshop)
 
