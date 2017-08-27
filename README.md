@@ -101,7 +101,7 @@ Your task is to do this using copying commands.
 
 Lets pretend our project needs a Digital-to-Analog-Converter (DAC). So we are going to make a symbol for the MCP4725 I2C DAC built by Microchip:
 
-![MCP4725 symbol](mcp4725.jpg)
+![MCP4725 symbol](mcp4725.png)
 
 Take a look at the datasheet here: [MCP4725 Datasheet](http://ww1.microchip.com/downloads/en/DeviceDoc/22039d.pdf)
 
