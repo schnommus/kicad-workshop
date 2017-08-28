@@ -202,7 +202,7 @@ Tip2: Sometimes it makes more sense to annotate parts based on the physical layo
 
 All going well, you should now have something like this:
 
-![Complete Schematic](schematic_complete.png)
+![Complete Schematic](schematic_done.png)
 
 ## Task 5: Playing with the Electrical Rule Checker (ERC)
 
