@@ -138,7 +138,7 @@ Take a look at the datasheet here: [MCP4725 Datasheet](http://ww1.microchip.com/
     - OK again to the library files window.
 - Now you can place your new part using the normal part placing tool. Nice!
 
-### Does your symbol/footprint already exist?
+### Protip - Check if your symbol/footprint already exists!
 
 Making a symbol/footprint is often our *Last Resort* - it takes a lot of time! Other than the basic internal library that KiCAD comes with, where else can we find symbols?
 
@@ -150,7 +150,7 @@ Making a symbol/footprint is often our *Last Resort* - it takes a lot of time! O
     - (Example, 'HSMF-C114' RGB led is in none of the KiCAD libraries, but it is on this site)
 - Sometimes component distributors (Digikey/Element14) include symbols/footprints in their part data sections.
 
-## Task 4: Adding a microcontroller & hooking things together
+## Task 4: Bringing things together
 
 ### Adding a microcontroller
 
@@ -162,6 +162,78 @@ In this project we will use the STM32F030F4 microcontroller from ST. Your task i
     - *Preferences (top bar) -> Component Libraries -> Add*
     - There is a library called `stm32`. Add it.
     - Now you should be able to find the STM32F030F4 microcontroller when you place a part.
+
+### Connecting up the DAC
+
+We want to send the DAC output to a connector, and have it talk to our microcontroller over I2C. Try and replicate this:
+
+![DAC Connections](dac_connections.png)
+
+Bonus question - why do we need the pull-up resistors?
+
+#### Tips
+- To find the connector symbol, look in the 'conn' part category
+- Be careful with junctions! If you have a point where 3 wires meet, and a junction doesn't appear, you might have to add it manually. Use the 'place junction' tool (above the place net name tool).
+
+### Hooking up the microcontroller
+
+Now we want to connect the heart of the circuit to everything else! Try and replicate this:
+
+![Microcontroller connections](micro_connections.png)
+
+#### Tips
+- Use the (blue X) button in the right toolbar to place 'no-connect' symbols. These are used by the Electrical Rule checker to see if you made any mistakes.
+- Use the (blue dotted line) button to place lines, and the (big T) button to place text. This is very useful for indicating parts of your schematic.
+
+### Annotating your schematic
+
+You will notice that all the parts have 'R?' or 'U?' designators next to them. This isn't great, because KiCAD is unable to easily distinguish between the parts for electrical rule checking, and for generating a netlist (which we will do later).
+
+- To annotate your schematic:
+    - *Tools -> Annotate Schematic*
+    - All the default options are usually fine
+    - Click 'Annotate' and 'OK'
+    - Now all your parts will have nice numbers
+
+Tip: If you later accidentally annotate part of your schematic, you can clear them with this same window.
+Tip2: Sometimes it makes more sense to annotate parts based on the physical layout than the schematic. We might look at that later.
+
+### Admire your hard work
+
+All going well, you should now have something like this:
+
+![Complete Schematic](schematic_complete.png)
+
+## Task 5: Playing with the Electrical Rule Checker (ERC)
+
+### Did you make a mistake?
+
+Now that everything looks good, you can run the ERC to see if you have made any (easily detectable) errors.
+
+- *Tools -> Electrical Rules Checker*
+    - Hit 'Run'
+- You will probably get some errors like 'Pin connected to some other pins but no pin to drive it'
+    - This is because KiCAD thinks that we have no supply for our GND or +3V3 rails.
+
+- To fix this, we can place a special power port (same command as for GND/3.3V parts)
+    - Search for 'PWR_FLAG'
+
+You want to make something like this:
+
+![Power Flags](pwr_flag.png)
+
+This indicates to KiCAD that a supply is available (in our case from the debugging connector).
+
+### What sorts of things can ERC check?
+
+- Try a few things and see what happens when you run ERC:
+    - Deleting a ground or supply rail from the DAC or microcontroller.
+    - Deleting one of the 'no-connect' symbols on the microcontroller.
+    - Change one of the LED net labels to 'LEED_1' (a typo) (on one wire, not both wires)
+
+Summary: ERC can help you with all sorts of things, explore it some more with your own project if you're interested.
+
+# Working with the PCB editor
 
 ## Where to get help (after this workshop)
 
