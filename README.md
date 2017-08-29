@@ -185,6 +185,8 @@ Now we want to connect the heart of the circuit to everything else! Try and repl
 - Use the (blue X) button in the right toolbar to place 'no-connect' symbols. These are used by the Electrical Rule checker to see if you made any mistakes.
 - Use the (blue dotted line) button to place lines, and the (big T) button to place text. This is very useful for indicating parts of your schematic.
 
+(Question - what is this circuit missing that we should probably add?)
+
 ### Annotating your schematic
 
 You will notice that all the parts have 'R?' or 'U?' designators next to them. This isn't great, because KiCAD is unable to easily distinguish between the parts for electrical rule checking, and for generating a netlist (which we will do later).
@@ -234,6 +236,112 @@ This indicates to KiCAD that a supply is available (in our case from the debuggi
 Summary: ERC can help you with all sorts of things, explore it some more with your own project if you're interested.
 
 # Working with the PCB editor
+
+(Note for these next couple of tasks we are still in the schematic editor, but we are now preparing it for layout)
+
+## Task 6: Picking our footprints
+
+At the moment our schematic only has symbols - before putting our PCB together, we need to associate each symbol with a *footprint*.
+
+- *Tools -> Assign Component Footprint*
+
+You will get a window of all your parts ready to be assigned. Your challenge: try and copy this --
+
+![Selected Footprints](footprints_selected.png)
+
+- To assign a footprint, select a part in the middle and then pick a footprint from the right window.
+- At the top of the window there are a few useful buttons that will let you filter footprints.
+
+### Tips
+
+- You might need to *filter by library* and choose 'TO_SOT_Packages_SMD' to find the SOT-23 packages for the transistors and DAC.
+- Generally you want to choose the hand-soldering footprints unless you are a soldering god or have a reflow oven.
+- Always double-check your footprints/schematic symbols against your datasheet (i.e pin ordering!)
+
+### Once you are finished
+
+- Hit the top left (green down arrow) button to save your footprint associations.
+    - Then *File->Close* to exit that window.
+
+## Task 7: Layout our PCB
+
+Protip -> many of the shortcuts in the PCB editor are the same (movement, panning etc).
+
+### Generating and importing our netlist
+
+First, we have to generate a netlist in the schematic editor. This is read by KiCAD's PCB editor later to figure out which parts to place, and what the connections are.
+
+- Click the 'NET' icon in the top right of the schematic editor.
+    - Click 'Generate'
+    - Save the netlist in the same folder as your project. The default is usually fine.
+
+It's time to move to our PCB!
+
+- Hit the 'Run PCBNew' button (it's at the top right, picture of pencil on PCB).
+    - Now you are in the PCB editor. But it is pretty boring at the moment
+    - Click the 'NET' button at the top right of the PCB editor
+        - Hit 'Read Current Netlist', hit 'yes' if it asks.
+    - Your parts are now on your PCB, but they are all clumped up!
+
+### Spreading out our parts
+
+We have parts, but they are all clumped up!
+
+- To separate all our parts
+    - switch to Footprint Mode (right-ish of top toolbar, chip with 4 arrows - make sure it is pressed)
+    - Right click anywhere (not on a component)
+        - *Global Spread & Place->Spread Out All Footprints*
+        - Hit 'Yes'
+        - your parts should now be all nicely spread out.
+    - Exit global footprint placement mode at any time by depressing the mode button from earlier
+
+Now we just need somewhere to put them...
+
+### Placing the board outline
+
+We want to create a nice board outline, like this:
+
+![Board Outline](board_outline.png)
+
+- First select the 'Edge.Cuts' layer by clicking it on the right layer window.
+- You can draw a simple edge by using the line tool (blue dotted line, right toolbar)
+- You can use the circle or arc tools to make things more interesting
+- Try using the arc tool to round your edges.
+- Note: make sure you aren't in *Global Footprint Placement* mode if you try to move edge lines.
+
+For fun - check out your fancy board outline in the 3D viewer with *View->3D View*
+- Some parts will have the wrong rotation. This is a KiCAD library bug, don't worry about it.
+- To make it look prettier:
+    - *Preferences*: Tick 'Realistic Mode'
+    - *Preferences*: Tick 'Show Copper Thickness'
+    - *Preferences*: Untick 'Show 3D Models' (to remove the ugliness)
+
+### Laying out your parts
+
+Go for your life! Doesn't have to exactly match what I show here:
+
+![PCB with components placed](pcb_placed.png)
+
+#### Useful commands
+
+- Use the regular 'M' (move), 'R' (rotate) tools to move things around.
+- Tip: this is easier in *Global Footprint Placement* mode, as you won't accidentally pick up stray pads quite as much.
+
+#### Tip: filtering out what matters
+
+- A lot of the stuff you will see on your PCB in the designer window will not actually show up on your final PCB.
+- On the right *Layer/Render* pane:
+    - In 'Layer', you most often only need:
+        - F.Cu / B.Cu (Front & bottom copper)
+        - F.SilkS / B.SilkS
+        - Edge.Cuts
+    - In 'Render', you most often only need:
+        - Everything except 'Values', unless you really want the extra clutter.
+
+#### Sidenote: Mounting holes & decals
+
+- You can add extra footprints like mounting holes using the *Add Footprints* button in the right toolbar.
+- Add the CE/FCC logo if you want to be really naughty!
 
 ## Where to get help (after this workshop)
 
