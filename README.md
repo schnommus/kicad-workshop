@@ -434,7 +434,7 @@ Almost done! Now we just need to make all the connections:
 - Test jigs (i.e pogo pins)
 - Fiducials & general DFM
 - Microstrip elements, inductors & capacitive touch sensors
-- Shameless self-advertisement ([youtube.com/c/vk2seb](youtube.com/c/vk2seb))
+- Shameless self-advertisement ([youtube.com/c/vk2seb](https://www.youtube.com/c/vk2seb))
 
 ## Where to get help (after this workshop)
 
