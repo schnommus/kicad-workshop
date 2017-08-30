@@ -16,6 +16,13 @@ There are binaries available for all major operating systems.
 
 If you are using Linux, you may additionally want to install `kicad-library` & `kicad-library-3d` as these aren't included by default.
 
+## Extra Stuff (for before the workshop)
+
+- What are we building?
+    - Basically a simple board with a micro, a DAC and some LEDs.
+- Millimeters, mils, thou, copper ounces
+- PCB layers (what is solder mask? silkscreen?)
+
 # Creating a Project
 
 - Fire up `kicad`.
@@ -342,6 +349,61 @@ Go for your life! Doesn't have to exactly match what I show here:
 
 - You can add extra footprints like mounting holes using the *Add Footprints* button in the right toolbar.
 - Add the CE/FCC logo if you want to be really naughty!
+
+### Adding some zones
+
+For EMC/EMI, heat dissipation and to make routing easier - it's often beneficial to make ground or power planes.
+In this design we will just use 2 ground planes.
+
+We want this:
+
+![PCB zones placed](zones_placed.png)
+
+- To place a zone, use the 'Place Filled Zone' tool in the right toolbar.
+    - Click somewhere to start placing the zone.
+        - In the dialog that pops up, select the 'GND' net.
+        - Choose the top copper layer (F.Cu)
+    - Click at points to create your polygon.
+        - When finished, right click and choose 'Close Zone Outline'
+    - Now you have a zone. To fill it in (make sure to still have the zone tool enabled)
+        - Right-click and hit 'Refill/Fill all Zones' (or press 'B')
+
+- The problem now is that the zone clearances are so high it misses some pins on the chip!
+    - Switch back to the normal arrow tool
+    - Right click on the zone (border!)
+        - *Zones->Edit Zone Properties*
+        - Change the clearance to something like 0.254mm / 10 mil
+- To copy that zone onto the bottom layer:
+    - Right click on the zone (border!)
+        - *Zones->Duplicate Zone Onto Layer*
+
+- Note: having both these zones can make it hard to see anything
+    - Make things easier to see by selecting one of the nicer zone visibility options on the left toolbar.
+
+### Routing your PCB
+
+## Extra Stuff (for after the workshop if time permits)
+
+- KiCAD's heirarchical design features
+    - Multi-schematic designs with a heirarchy
+    - Multi-schematic designs that are flat
+
+- Buying a PCB, all the settings..
+    - Materials (FR4, aluminium, rogers)
+    - Copper thickness
+    - Silkscreen
+    - Surface finish (HASL is fine for prototypes)
+    - Clearances
+    - Drill sizes
+
+- Via tenting
+- Stencilling jigs
+- V-Scoring
+- Soldering tips
+- Test jigs (i.e pogo pins)
+- Fiducials & general DFM
+- Microstrip elements, inductors & capacitive touch sensors
+- Shameless self-advertisement
 
 ## Where to get help (after this workshop)
 
