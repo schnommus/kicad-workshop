@@ -16,13 +16,6 @@ There are binaries available for all major operating systems.
 
 If you are using Linux, you may additionally want to install `kicad-library` & `kicad-library-3d` as these aren't included by default.
 
-## Extra Stuff (for before the workshop)
-
-- What are we building?
-    - Basically a simple board with a micro, a DAC and some LEDs.
-- Millimeters, mils, thou, copper ounces
-- PCB layers (what is solder mask? silkscreen?)
-
 # Creating a Project
 
 - Fire up `kicad`.
@@ -350,6 +343,8 @@ Go for your life! Doesn't have to exactly match what I show here:
 - You can add extra footprints like mounting holes using the *Add Footprints* button in the right toolbar.
 - Add the CE/FCC logo if you want to be really naughty!
 
+## Task 8: Connecting things together
+
 ### Adding some zones
 
 For EMC/EMI, heat dissipation and to make routing easier - it's often beneficial to make ground or power planes.
@@ -382,11 +377,47 @@ We want this:
 
 ### Routing your PCB
 
+Almost done! Now we just need to make all the connections:
+
+![PCB routed](pcb_routed.png)
+
+#### Useful commands
+
+- To start routing pads, use the 'ratsnest' (white lines) to guide you.
+    - Switch to the routing tool (green line on white toolbar)
+    - Click on a pad, keep clicking to create angles, double click to finish.
+    - Press 'v' to switch layers and/or create vias
+    - Press 'Backspace' to undo a click (which previously created an angle)
+
+#### Tips
+
+- If your grid is too coarse and things are snapping all over the place, change your grid to something smaller at the top of the window.
+- For different track/via widths:
+    - Top menu: *Design Rules->Design Rules*
+    - Tab: *Global Design Rules*
+    - Add your custom vias/track widths in the bottom 2 fields
+    - Now you can select them with the routing tool
+
+## Task 9: Getting it made!
+
+### Generating gerber files
+
+## Extra Stuff (for before the workshop)
+
+- What are we building?
+    - Basically a simple board with a micro, a DAC and some LEDs.
+- Millimeters, mils, thou, copper ounces
+- PCB layers (what is solder mask? silkscreen?)
+
 ## Extra Stuff (for after the workshop if time permits)
 
 - KiCAD's heirarchical design features
     - Multi-schematic designs with a heirarchy
     - Multi-schematic designs that are flat
+
+- Track widths with netclass associations
+
+- Don't use an autorouter (they suck)
 
 - Buying a PCB, all the settings..
     - Materials (FR4, aluminium, rogers)
@@ -403,7 +434,7 @@ We want this:
 - Test jigs (i.e pogo pins)
 - Fiducials & general DFM
 - Microstrip elements, inductors & capacitive touch sensors
-- Shameless self-advertisement
+- Shameless self-advertisement ([youtube.com/c/vk2seb](youtube.com/c/vk2seb))
 
 ## Where to get help (after this workshop)
 
