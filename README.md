@@ -326,6 +326,7 @@ Go for your life! Doesn't have to exactly match what I show here:
 
 - Use the regular 'M' (move), 'R' (rotate) tools to move things around.
 - Tip: this is easier in *Global Footprint Placement* mode, as you won't accidentally pick up stray pads quite as much.
+- You probably won't need this today, but you can use 'F' to flip components onto the other side of the PCB, if you are making something really dense.
 
 #### Tip: filtering out what matters
 
@@ -401,6 +402,45 @@ Almost done! Now we just need to make all the connections:
 ## Task 9: Getting it made!
 
 ### Generating gerber files
+
+## Task 10 (bonus): Creating your own footprints
+
+Because of the way KiCAD separates symbols and footprints, it is rare that you will have to actually create your own footprint.
+
+However, it's useful to know how if you get caught out without a footprint! Let's try making the footprint for a CR2032 coin cell battery holder [datasheet link here](https://cdn.harwin.com/pdfs/S8211R.pdf)
+
+![CR2032 footprint done](footprint.png)
+
+### Opening the footprint editor & starting a new footprint
+
+- From the main KiCAD project window (the one that you started the schematic/pcb editors from)
+    - Open the 'PCB Footprint Editor' (chip with a pencil)
+    - Hit the 'New footprint' button in the top toolbar
+        - Name your footprint something appropriate.
+
+### Placing and editing pads
+
+- In the right toolbar, use the 'Add Pads' button.
+- Once you have placed a pad, you can edit it (press 'E' or *Right Click->Edit Pad*)
+    - You can change it from through-hole to surface mount
+    - You can type in the position and dimensions precisely
+    - Add the 20mm-diameter (CR20mm3.2mm!) silkscreen for the battery size
+        - Select the top silkscreen layer
+        - Use the circle tool to create a circle at the origin
+        - Edit it by right clicking on it
+        - Set everything to zero except the last Y point, set to 10mm
+        - Now you have the correct circle
+    - You can edit the pad identifier (this should correspond to the schematic symbol pad identifiers)
+        - Open the schematic symbol editor for your symbol to double check this if necessary
+            - *File->Current Library* to select the correct library
+            - We want the 'device' library
+            - Top toolbar, hit 'Load component to edit...'
+            - Find 'Battery_Cell'
+            - From here you can check pins by editing them.
+            - Can see that + is 1, - is 2.
+- When you're finished, top left toolbar:
+    - *File->Save footprint to new library*
+    - Name it what you want
 
 ## Extra Stuff (for before the workshop)
 
