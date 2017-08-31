@@ -1,5 +1,7 @@
 # KiCAD Workshop (ELSOC '17)
 
+![Finished PCB](pcb_gerblook.png)
+
 ## What You'll Need
 
 - A computer (Windows/Mac/Linux)
@@ -401,7 +403,49 @@ Almost done! Now we just need to make all the connections:
 
 ## Task 9: Getting it made!
 
-### Generating gerber files
+### Is it physically possible? - Use the Design Rule Checker (DRC)
+
+- See if the design rules in *Design Rules -> Design Rules* make sense
+    - Let's just leave them for now, but normally you want to set these to match your PCB fabricator.
+    - For example, *PCBWay* have these capabilities: [PCBWay Capabilities](https://www.pcbway.com/capabilities.html)
+    - The main things to be careful with:
+        - Min Spacing (=clearance)
+        - Min Trace (=min width)
+        - Min Drill (=min drill dia.)
+        - Min Annular Ring (=0.5*(min via dia. - min drill dia.))
+    - Usually defaults are fine however.
+- Run a *Tools->DRC*
+    - Hit 'Start DRC'
+    - Check for any errors in the *Problems/Markers* or *Unconnected* tabs.
+- Experiment a bit - try deleting a track, causing a collision or changing the net rules so your tracks are too small.
+    - See what happens if you re-run the DRC.
+
+### Generating gerber files / drill files
+
+PCB manufacters use *Gerber Files* to actually make your board. These are in a standard format that all PCB EDA tools can export.
+
+- For Gerbers, in the PCB editor:
+    - *File->Plot*, copy what you see below (note any layers not shown are unticked)
+    - Change the output directory to whatever you want.
+
+![Gerber Plot settings](plot_form.png)
+
+- Hit 'Plot'
+- For Drill files, 'Generate Drill File'
+    - Set 'Zeros Format' to 'Suppress leading'
+    - Tick 'Minimal header' in 'Drill File Options'
+    - Click 'Drill File' to save your drill file to the same folder as your gerbers.
+
+You're done!
+
+### A final sanity check
+
+- To make sure what you exported is what you expected -
+    - Go to [GerbLook.org](http://gerblook.org/)
+    - Upload your files, hit 'go', & check all your layers.
+- You should get something like this:
+
+![Finished PCB](pcb_gerblook.png)
 
 ## Task 10 (bonus): Creating your own footprints
 
